@@ -1,19 +1,38 @@
 # Receipt Processor
 
-Build a webservice that fulfils the documented API. The API is described below. A formal definition is provided 
-in the [api.yml](./api.yml) file. We will use the described API to test your solution.
-
-Provide any instructions required to run your application.
-
-Data does not need to persist when your application stops. It is sufficient to store information in memory. There are too many different database solutions, we will not be installing a database on our system when testing your application.
-
-## Language Selection
-
-You can assume our engineers have Go and Docker installed to run your application. Go is our preferred language, but choosing it will not give you an advantage in the evaluation. If you are not using Go, include a Dockerized setup to run the code. You should also provide detailed instructions if your Docker file requires any additional configuration to run the application.
-
-## Submitting Your Solution
-
-Provide a link to a public repository, such as GitHub or BitBucket, that contains your code to the provided link through Greenhouse.
+This is my solution to the receipt process challenge.
+in the CMD, run 
+```
+go run main.go
+```
+then in another cmd terminal, run 
+```
+curl -X POST http://localhost:8080/receipts/process -H "Content-Type: application/json" -d "@examples/target-receipt.json" 
+```
+Example response:
+```json
+{"id":"d3fb479a-c87d-4a1c-bd01-dda08c75d55c"}
+```
+Using the ID, run this command, replacing {id} with the id
+```
+curl -X GET http://localhost:8080/receipts/{id}/points
+```
+Example response:
+```json
+{"points":28}
+```
+Additionally, a breakdown of points is logged as well.
+Example:
+```
+6 points - the retailer name, "Target", has 6 characters
+10 points - 5 items (5 points for every two items)
+3 points - "Emils Cheese Pizza" is 18 characters (a multiple of 3)
+    item price is $12.25 * 0.2 = $2.45, rounded up is 3 points
+3 points - "Klarbrunn 12-PK 12 FL OZ" is 24 characters (a multiple of 3)
+    item price is $12.00 * 0.2 = $2.40, rounded up is 3 points
+6 points - the day, 1, is odd
+Total Points: 28
+```
 
 ---
 ## Summary of API Specification

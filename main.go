@@ -117,7 +117,7 @@ func calculatePoints(receipt Receipt) (int64, error) {
 	//5 points for every two items on the receipt
 	numItems := len(receipt.Items)
 	pointsToAdd := int64(numItems / 2 * 5)
-	fmt.Printf("%d points for %d items (5 points for every two items)\n", pointsToAdd, numItems)
+	fmt.Printf("%d points - %d items (5 points for every two items)\n", pointsToAdd, numItems)
 
 	points += pointsToAdd
 
@@ -150,7 +150,7 @@ func calculatePoints(receipt Receipt) (int64, error) {
 	//6 points if the day in the purchase date is odd.
 	day := date.Day()
 	if day%2 == 1 {
-		fmt.Printf("6 points - the day, %v, is odd\n ", day)
+		fmt.Printf("6 points - the day, %v, is odd\n", day)
 		points += 6
 	}
 
@@ -160,7 +160,7 @@ func calculatePoints(receipt Receipt) (int64, error) {
 		fmt.Printf("10 points - the time is %d:%d, whitch is between 2pm and 4pm\n", date.Hour(), date.Minute())
 		points += 10
 	}
-	fmt.Printf("Total Points: %d: ", points)
+	fmt.Printf("Total Points: %d\n", points)
 
 	return points, nil
 }
