@@ -3,6 +3,10 @@
 This is my solution to the receipt process challenge.
 in the CMD, run 
 ```
+go mod tidy
+```
+then run
+```
 go run main.go
 ```
 then in another cmd terminal, run 
